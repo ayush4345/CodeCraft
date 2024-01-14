@@ -1,9 +1,9 @@
 import requests
 import os
 from dotenv import load_dotenv
-dotenv_path = '/home/adya/.env/container.env'
+dotenv_path = '.env'
 load_dotenv(dotenv_path)
-
+print(os.getenv('rapid_api_key'))
 api_url = "https://ce.judge0.com/"
 rapid_api_key = os.getenv('rapid_api_key')
 
@@ -77,11 +77,13 @@ def compile():
     lang_id = int(input())
     file_name = input()
 
-    with open(file_name, 'r', encoding='utf-8') as file:
-        source_code = file.read()
+    # with open(file_name, 'r', encoding='utf-8') as file:
+    #     source_code = file.read()
+
+    source_code = 'print("helloworld")'
 
     token = get_submission_token(source_code, lang_id)
     ans = check_submission_status(token)
     print("Output:\n", ans)
 
-# compile()
+compile()
