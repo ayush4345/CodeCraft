@@ -1,5 +1,11 @@
 import requests
+import os
+from dotenv import load_dotenv
+dotenv_path = '/home/adya/.env/container.env'
+load_dotenv(dotenv_path)
+
 api_url = "https://ce.judge0.com/"
+rapid_api_key = os.getenv('rapid_api_key')
 
 def get_languages():
     try:
@@ -27,7 +33,7 @@ def get_submission_token(source_code, id, inputs = None):
 
         headers = {
             "content-type": "application/json",
-            "X-RapidAPI-Key": "48c41ea7afmsh5e5993471c69101p1cdae3jsnff7df8ad40a1",
+            "X-RapidAPI-Key": rapid_api_key,
             "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
         }
 
@@ -46,7 +52,7 @@ def check_submission_status(token):
         querystring = {"base64_encoded":"false","fields":"*"}
 
         headers = {
-            "X-RapidAPI-Key": "48c41ea7afmsh5e5993471c69101p1cdae3jsnff7df8ad40a1",
+            "X-RapidAPI-Key": rapid_api_key,
             "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com"
         }
 
