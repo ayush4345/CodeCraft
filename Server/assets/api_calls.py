@@ -12,6 +12,7 @@ def get_languages():
         response = requests.get(url)
 
         response = response.json()
+        print(response)
         return(response)
     except requests.exceptions.RequestException as e:
         print(f"Error fetching languages: {e}")
@@ -58,30 +59,13 @@ def check_submission_status(token):
         response = requests.get(url, headers=headers, params=querystring)
 
         response = response.json()
-        output = response['stdout']
-        error = response['stderr']
-        if output != None:
-            return output
-        else:
-            return error
+        return response
     except requests.exceptions.RequestException as e:
         print(f"Error checking submission status: {e}")
         return None
 
 
-def compile():
-    langs = get_languages()
-    for item in langs:
-        print("Langage:", item['name'], "  ---> id:", item['id'])
-    lang_id = int(input())
-    file_name = input()
-
-    with open(file_name, 'r', encoding='utf-8') as file:
-        source_code = file.read()
-
-
+def compile(source_code, lang_id):
     token = get_submission_token(source_code, lang_id)
     ans = check_submission_status(token)
-    print("Output:\n", ans)
-
-# compile()
+    return ans
