@@ -12,4 +12,4 @@ class Languages(APIView):
     
 class Compile(APIView):
     def post(self, request):
-        return Response(compile(request.data["source_code"], request.data["id"]))
+        return Response(compile(request.data["source_code"], request.data["language_id"]))
