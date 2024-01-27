@@ -1,11 +1,14 @@
 import requests
 import os
+from django.views.decorators.csrf import csrf_exempt
 from dotenv import load_dotenv
+
 dotenv_path = '.env'
 load_dotenv(dotenv_path)
 api_url = "https://ce.judge0.com/"
 rapid_api_key = os.getenv('rapid_api_key')
 
+@csrf_exempt
 def get_languages():
     try:
         url = api_url + "languages/"
@@ -73,7 +76,7 @@ def check_submission_status(token):
         print(f"Error checking submission status: {e}")
         return None
 
-
+@csrf_exempt
 def compile(source_code, lang_id, inputs = None):
     token = get_submission_token(source_code, lang_id, inputs)
     ans = check_submission_status(token)
