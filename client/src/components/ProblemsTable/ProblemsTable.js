@@ -1,10 +1,13 @@
-import { problems } from '../../mockProblems/problems'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsCheckCircle } from 'react-icons/bs'
 import { AiFillYoutube } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
+import { supabase } from '../../supabase/supabase'
 
-export default function ProblemsTable() {
+export default function ProblemsTable({setLoadingProblems}) {
+    const problems = useGetProblems(setLoadingProblems);
+    const solvedProblems = useGetSolvedProblems();
+    // console.log(solvedProblems)
     return (
         <>
             <tbody className="text-white">
@@ -18,7 +21,7 @@ export default function ProblemsTable() {
                     return (
                         <tr className={`${idx % 2 === 1 ? "bg-dark-layer-1" : ""}`} key={problem.id}>
                             <th className="px-2 py-4 font-medium whitespace-nowrap text-dark-green-s">
-                                <BsCheckCircle fontSize={"18"} width="18" />
+                                {solvedProblems && solvedProblems.includes(problem.id) && <BsCheckCircle fontSize={"18"} width="18" />}
                             </th>
                             <td className="px-6 py-4">
                                 <Link to={`/problems/${problem.id}`} className="hover:text-blue-600 cursor-pointer">
@@ -46,3 +49,58 @@ export default function ProblemsTable() {
         </>
     )
 }
+
+function useGetProblems(setLoadingProblems){
+    const [problems,setProblems] = useState([])
+
+    useEffect(()=>{
+        //fetch data from db
+        const fetchProblems = async () => {
+            setLoadingProblems(false)
+            try {
+              const { data, error } = await supabase
+                .from('Problems')
+                .select()
+                .order('order', { ascending: true });
+        
+            //   console.log(data)
+        
+              if (error) {
+                console.error('Error fetching problems:', error);
+              } else if (data) {
+                setProblems(data)
+                setLoadingProblems(false)
+              }
+            } catch (error) {
+              console.error('Error fetching problems:', error);
+            }
+          };
+          fetchProblems();
+    },[setLoadingProblems])
+    return problems;
+}
+
+function useGetSolvedProblems() {
+    const [solvedProblems, setSolvedProblems] = useState([]);
+  
+    useEffect(() => {
+      const getSolvedProblems = async () => {
+        const { data: { user } } = await supabase.auth.getUser()
+  
+        if (user) {
+            const { data,error } = await supabase
+            .from('users')
+            .select('solvedProblems')
+            .eq('id',user.id)
+
+            setSolvedProblems(data[0].solvedProblems)
+        }
+        else{
+            setSolvedProblems([])
+        }
+      };
+      getSolvedProblems();
+    }, []);
+  
+    return solvedProblems;
+  }

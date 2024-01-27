@@ -6,6 +6,7 @@ import { supabase } from '../../supabase/supabase';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify'
+import { Link } from 'react-router-dom';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -16,13 +17,13 @@ export default function SignUp() {
       const [inputs, setInputs] = useState({
         name: '',
         profession: '',
-        schoolOrCollege: '',
-        company: '',
-        email: '',
-        password: '',
+        institute: '',
         ageGroup: '',
-        learnCodingReason: '',
-        codingExperience: '',
+        email: '',
+        displayName: '',
+        password: '',
+        reason: '',
+        experience: '',
       });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -47,7 +48,7 @@ export default function SignUp() {
       try {
         setLoading(true);
         setError(null);
-  
+        toast.loading("Creating your account", { position: "top-center", toastId: "loadingToast" });
         const { user, error } = await supabase.auth.signUp({
           email: inputs.email,
           password: inputs.password,
@@ -55,27 +56,40 @@ export default function SignUp() {
   
         if (error) {
           throw error;
+        }else{
+          console.log('Signed up:', user);
+        // alert("Signed up successfully. Confirm it before login on your registered mailId.")
+        const { data, error: linkError } = await supabase
+          .from('users')
+          .upsert([
+            {
+              email: inputs.email,
+              displayName: inputs.displayName,
+              name:inputs.name,
+              profession:inputs.profession,
+              institute:inputs.profession,
+              ageGroup:inputs.ageGroup,
+              reason:inputs.reason,
+              experience:inputs.experience,
+            },
+          ]);
+
+        if (linkError) {
+          console.error('Error linking user with users table:', linkError.message);
+        } else {
+          console.log('User linked with users table:', data);
+        }
         }
   
         // Additional logic after successful registration
-        console.log('User registered successfully:', user);
-        toast.success('Registration successful', {
-          position: 'top-center',
-          autoClose: 3000,
-          theme: 'dark',
-        });
   
         // Redirect to additional info page with user data
         navigate('/');
       } catch (error) {
-        setError(error.message);
-        toast.error(error.message, {
-          position: 'top-center',
-          autoClose: 3000,
-          theme: 'dark',
-        });
+        toast.error(error.message, { position: "top-center" });
       } finally {
         setLoading(false);
+        toast.dismiss("loadingToast");
       }
     };
 
@@ -89,8 +103,8 @@ export default function SignUp() {
     }, [error]);
     
   return (
-    <form className="space-y-6 px-6 pb-4 overflow-y-auto h-96" onSubmit={handleRegister}>
-      <h3 className="text-xl font-medium text-white">Register to LeetClone</h3>
+    <form className="space-y-6 px-6 pb-4 overflow-y-auto h-screen" onSubmit={handleRegister}>
+      <h3 className="text-xl font-medium text-white my-10">Register to LeetClone</h3>
       
       <div>
         <label htmlFor="name" className="text-sm font-medium block mb-2 text-gray-300">
@@ -144,18 +158,25 @@ export default function SignUp() {
         <label htmlFor="ageGroup" className="text-sm font-medium block mb-2 text-gray-300">
           Age Group
         </label>
-        <input
-        onChange={handleChangeInput}
-          type="text"
+        <select
+          onChange={handleChangeInput}
           name="ageGroup"
           id="ageGroup"
           className="
-        border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-        bg-gray-600 border-gray-500 placeholder-gray-400 text-white
-    "
-          placeholder="Below 18, 18-25,25+"
-        />
+            border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+            bg-gray-600 border-gray-500 placeholder-gray-400 text-white
+          "
+          defaultValue="" // Set the default value to an empty string
+        >
+          <option value="" disabled hidden >
+            Select an age group
+          </option>
+          <option value="Below 18">Below 18</option>
+          <option value="18-25">18-25</option>
+          <option value="25+">25+</option>
+        </select>
       </div>
+
 
       <div>
         <label htmlFor="email" className="text-sm font-medium block mb-2 text-gray-300">
@@ -252,9 +273,9 @@ export default function SignUp() {
 
       <div className="text-sm font-medium text-gray-300">
         Already have an account?{" "}
-        <a href="#" className="text-blue-700 hover:underline" onClick={()=>handleClick("login")}>
+        <Link to='/auth' className="text-blue-700 hover:underline" onClick={()=>handleClick("login")}>
           Log In
-        </a>
+        </Link>
       </div>
     </form>
   )

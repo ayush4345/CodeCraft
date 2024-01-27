@@ -8,11 +8,33 @@ import { useState, useEffect, useCallback } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { BsList } from 'react-icons/bs';
 import Timer from '../Timer/Timer';
+import { useParams } from 'react-router-dom';
+import { problems } from '../../utils/problems/index'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Topbar({ problemPage }) {
     const [user, setUser] = useState(null);
     const setAuthModalState = useSetRecoilState(authModalState);
+    let { pid } = useParams();
+    const navigate = useNavigate() 
+
+    const handleProblemChange = (isForward)=>{
+        const order = problems[pid].order
+        const direction = isForward? 1 : -1
+        const nextProblemOrder = order + direction
+        const nextProblemKey = Object.keys(problems).find((key)=> problems[key].order === nextProblemOrder)
+        
+        if (isForward && !nextProblemKey) {
+            const firstProblemKey = Object.keys(problems).find((key) => problems[key].order === 1);
+            navigate(`/problems/${firstProblemKey}`);
+          } else if (!isForward && !nextProblemKey) {
+            const lastProblemKey = Object.keys(problems).find((key) => problems[key].order === Object.keys(problems).length);
+            navigate(`/problems/${lastProblemKey}`);
+          } else {
+            navigate(`/problems/${nextProblemKey}`);
+          }
+    }
 
     const openLoginModal = useCallback(() => {
         setAuthModalState((prev) => ({
@@ -34,13 +56,13 @@ export default function Topbar({ problemPage }) {
 
             // Access user information from the session
             const currentUser = data?.session?.user;
-            console.log('User:', currentUser);
+            // console.log('User:', currentUser);
 
             setUser(currentUser);
         };
 
         getUserSession();
-        console.log(user)
+        // console.log(user)
     }, []);
     return (
         <div>
@@ -54,12 +76,12 @@ export default function Topbar({ problemPage }) {
                         <div className="flex items-center gap-4 flex-1 justify-center">
                             <div
                                 className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer"
-                            //   onClick={() => handleProblemChange(true)}
+                              onClick={() => handleProblemChange(false)}
                             >
                                 <FaChevronLeft />
                             </div>
                             <Link
-                                href="/"
+                                to="/"
                                 className="flex items-center gap-2 font-medium max-w-[170px] text-dark-gray-8 cursor-pointer"
                             >
                                 <div>
@@ -69,7 +91,7 @@ export default function Topbar({ problemPage }) {
                             </Link>
                             <div
                                 className="flex items-center justify-center rounded bg-dark-fill-3 hover:bg-dark-fill-2 h-8 w-8 cursor-pointer"
-                            //   onClick={() => handleProblemChange(true)}
+                              onClick={() => handleProblemChange(true)}
                             >
                                 <FaChevronRight />
                             </div>

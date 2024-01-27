@@ -1,7 +1,8 @@
 import React from 'react'
 import {BsChevronUp} from 'react-icons/bs'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
-export default function EditorFooter() {
+export default function EditorFooter({handleSubmit,submitting}) {
   return (
     <div className='flex bg-dark-layer-1 absolute bottom-0 z-10 w-full'>
 	<div className='mx-5 my-[10px] flex justify-between w-full'>
@@ -17,8 +18,11 @@ export default function EditorFooter() {
 			<button className='px-3 py-1.5 text-sm font-medium items-center whitespace-nowrap transition-all focus:outline-none inline-flex bg-dark-fill-3  hover:bg-dark-fill-2 text-dark-label-2 rounded-lg'>
 				Run
 			</button>
-			<button className='px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex text-sm text-white bg-dark-green-s hover:bg-green-3 rounded-lg'>
-				Submit
+			<button className='px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex text-sm text-white bg-dark-green-s hover:bg-green-3 rounded-lg'
+			onClick={handleSubmit}
+			>
+				{!submitting && "Submit"}
+				{submitting && <AiOutlineLoading3Quarters className="animate-spin" />}
 			</button>
 		</div>
 	</div>
