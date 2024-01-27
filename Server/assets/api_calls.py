@@ -19,7 +19,7 @@ def get_languages():
         return None
 
 
-def get_submission_token(source_code, id, inputs = None):
+def get_submission_token(source_code, id, inputs):
     try:
         url = "https://judge0-ce.p.rapidapi.com/submissions"
 
@@ -57,15 +57,24 @@ def check_submission_status(token):
         }
 
         response = requests.get(url, headers=headers, params=querystring)
-
         response = response.json()
-        return response
+        print(response)
+        output = response.get('stdout', '')
+        error = response.get('stderr', '')
+        time = response.get('time', '')
+        status = response.get('status', '')
+        if status['id']==1 or status['id']==2 :
+            return check_submission_status(token)
+        if output != None:
+            return {'output':output,'time':time,'status':status}
+        else:
+            return {'error':error,'status':status}
     except requests.exceptions.RequestException as e:
         print(f"Error checking submission status: {e}")
         return None
 
 
-def compile(source_code, lang_id):
-    token = get_submission_token(source_code, lang_id)
+def compile(source_code, lang_id, inputs = None):
+    token = get_submission_token(source_code, lang_id, inputs)
     ans = check_submission_status(token)
     return ans
