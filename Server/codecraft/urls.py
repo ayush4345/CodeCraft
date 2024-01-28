@@ -22,5 +22,6 @@ from api import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('languages', views.Languages.as_view(), name='Languages'),
-    path('compile', views.Compile.as_view(), name='Compile')
+    path('compile', views.Compile.as_view(), name='Compile'),
+    path('askai', views.Askai.as_view(), name='Askai'),
 ]
