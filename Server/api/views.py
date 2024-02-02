@@ -3,7 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from assets.api_calls import get_languages, compile
-from assets.openai_api import open_ai_api_call
+from assets.openai_api import open_ai_api_call, learn_ask_ai
 
 # Create your views here.
 class Languages(APIView):
@@ -18,3 +18,7 @@ class Compile(APIView):
 class Askai(APIView):
     def post(self, request):
         return Response(open_ai_api_call(request.data["error"], request.data["profession"], request.data["age"], request.data['experience'],request.data['level'] , request.data['prev_response']))
+    
+class Learn_Page_Api(APIView):
+    def post(self, request):
+        return Response(learn_ask_ai(request.data["topic"], request.data["profession"], request.data["age"], request.data['experience'],request.data['level']))
