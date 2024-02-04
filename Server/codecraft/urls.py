@@ -24,4 +24,5 @@ urlpatterns = [
     path('languages', views.Languages.as_view(), name='Languages'),
     path('compile', views.Compile.as_view(), name='Compile'),
     path('askai', views.Askai.as_view(), name='Askai'),
+    path('learnaskai', views.Learn_Page_Api.as_view(), name='LearnAskAi')
 ]
