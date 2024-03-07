@@ -24,6 +24,7 @@ export default function SignUp() {
         password: '',
         reason: '',
         experience: '',
+        level:''
       });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -36,7 +37,7 @@ export default function SignUp() {
       e.preventDefault();
   
       // Validate if all required fields are filled
-      const requiredFields = ['name', 'profession', 'email', 'password', 'ageGroup', 'learnCodingReason', 'codingExperience'];
+      const requiredFields = ['name', 'profession', 'email', 'password', 'ageGroup', 'reason', 'experience','level'];
       const isAnyFieldEmpty = requiredFields.some(field => !inputs[field]);
   
       // if (isAnyFieldEmpty) {
@@ -71,6 +72,7 @@ export default function SignUp() {
               ageGroup:inputs.ageGroup,
               reason:inputs.reason,
               experience:inputs.experience,
+              level:inputs.level
             },
           ]);
 
@@ -174,6 +176,29 @@ export default function SignUp() {
           <option value="Below 18">Below 18</option>
           <option value="18-25">18-25</option>
           <option value="25+">25+</option>
+        </select>
+      </div>
+
+      <div>
+        <label htmlFor="level" className="text-sm font-medium block mb-2 text-gray-300">
+          Level
+        </label>
+        <select
+          onChange={handleChangeInput}
+          name="level"
+          id="level"
+          className="
+            border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+            bg-gray-600 border-gray-500 placeholder-gray-400 text-white
+          "
+          defaultValue="" // Set the default value to an empty string
+        >
+          <option value="" disabled hidden >
+            Select a level
+          </option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Expert">Expert</option>
         </select>
       </div>
 

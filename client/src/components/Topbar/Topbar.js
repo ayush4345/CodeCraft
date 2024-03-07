@@ -120,6 +120,15 @@ export default function Topbar({ problemPage }) {
                         {problemPage && <Timer/>}
 
                         {user && (
+                            <>
+                            <div>
+                                <Link
+                                    to="/chat"
+                                    className="bg-dark-fill-3 py-1.5 px-3 cursor-pointer rounded text-brand-orange hover:bg-dark-fill-2"
+                                >
+                                    Discuss
+                                </Link>
+                            </div>
                             <div className="cursor-pointer group relative">
                                 <img src="/avatar.png" alt="Avatar" width={30} height={30} className="rounded-full" />
                                 <div className="absolute top-10 left-2/4 -translate-x-2/4  mx-auto bg-dark-layer-1 text-brand-orange p-2 rounded shadow-lg z-40 group-hover:scale-100 scale-0 ransition-all duration-300 ease-in-out"
@@ -127,6 +136,8 @@ export default function Topbar({ problemPage }) {
                                     <p className="text-sm">{user.email}</p>
                                 </div>
                             </div>
+                            </>
+                            
                         )}
                         {user && <Logout />}
                     </div>

@@ -13,7 +13,7 @@ export default function PreferenceNav({settings,setSettings}) {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-			  const response = await fetch('http://127.0.0.1:8000/languages/');
+			  const response = await fetch('http://127.0.0.1:8000/languages');
 		  
 			  if (!response.ok) {
 				throw new Error(`HTTP error! Status: ${response.status}`);

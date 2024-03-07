@@ -24,7 +24,7 @@ export default function AuthPage() {
 
       // Access user information from the session
       const currentUser = data?.session;
-      console.log('User:', currentUser);
+      // console.log('User:', currentUser);
 
       return currentUser;
     };

@@ -18,7 +18,9 @@ export default function Playground({problem, setSuccess}) {
   const [fontSize,setFontSize] = useLocalStorage("lcc-fontSize","16px");
   const [testTab,setTestTab] = useState(0);
   const [submitMessage,setSubmitMessage] = useState('You have to submit your code first');
+  const [askMessage,setAskMessage] = useState('Try the Ask AI feature');
   const [submitting,setSubmitting] = useState(false)
+  const [asking,setAsking] = useState(false)
 
   const [settings,setSettings] = useState({
     fontSize: fontSize,
@@ -27,6 +29,79 @@ export default function Playground({problem, setSuccess}) {
   })
 
   // console.log(activeTestCaseId)
+
+  const handleAskAI = async() =>{
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if(!user){
+      toast.error("Please log in to submit your code", { position: "top-center", autoClose: 3000, theme: "dark" });
+      return;
+    }
+    if(asking) return;
+    setAsking(true)
+      const { data,error } = await supabase
+      .from('users')
+      .select()
+      .eq('id',user.id)
+      
+      if(data[0].aipoints===0)
+      {
+        toast.error("Insufficient balance", { position: "top-center", autoClose: 3000, theme: "dark" });
+        setAsking(false)
+        return;
+      }
+      const apiUrl = 'http://127.0.0.1:8000/askai';
+      
+      const requestBody = {
+        "error":submitMessage,
+        "profession":data[0].profession,
+        "experience":data[0].experience,
+        "level":data[0].level,
+        "prev_response":JSON.parse(localStorage.getItem(`ai-${problem.id}`)),
+        "age":data[0].ageGroup
+      }
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: `);
+        }
+
+        const responseData = await response.json();
+        console.log(responseData)
+
+        if(responseData)
+        {
+            toast.success("AI response recieved!", { position: "top-center", autoClose: 3000, theme: "dark" });
+
+            const { error } = await supabase
+            .from('users')
+            .update({ aipoints: data[0].aipoints - 10 })
+            .eq('id', user.id)
+
+            setAskMessage(responseData.content)
+            localStorage.setItem(`ai-${problem.id}`,JSON.stringify(askMessage))
+            setTestTab(2)
+          //add to solved array if not present
+        }
+        else{
+          setAskMessage(responseData.content)
+          setTestTab(2)
+          toast.error(responseData.content, { position: "top-center", autoClose: 3000, theme: "dark" });
+        }
+      } catch (error) {
+        console.error('Error:', error.message);
+        setTestTab(2)
+      }
+      setAsking(false)
+  }
 
   const handleSubmit = async() =>{
     const { data: { user } } = await supabase.auth.getUser()
@@ -37,7 +112,7 @@ export default function Playground({problem, setSuccess}) {
     }
     if(submitting) return;
     setSubmitting(true)
-      const apiUrl = 'http://127.0.0.1:8000/submit/';
+      const apiUrl = 'http://127.0.0.1:8000/compile';
       const language = JSON.parse(localStorage.getItem('selected_language'));
       
       const requestBody = {
@@ -61,8 +136,9 @@ export default function Playground({problem, setSuccess}) {
         }
 
         const responseData = await response.json();
+        console.log(responseData)
 
-        if(responseData.responses.id === 3)
+        if(responseData.status.id === 3)
         {
             toast.success("Congrats! All tests passed!", { position: "top-center", autoClose: 3000, theme: "dark" });
             setSuccess(true);
@@ -74,13 +150,13 @@ export default function Playground({problem, setSuccess}) {
           //get solved problem array
           const { data,error } = await supabase
             .from('users')
-            .select('solvedProblems')
+            .select()
             .eq('id',user.id)
     
             // console.log(data[0].solvedProblems)
     
             setSolved(data[0].solvedProblems)
-            setSubmitMessage(responseData.responses.description)
+            setSubmitMessage(responseData.status.description)
             setTestTab(1)
           //add to solved array if not present
           if(!(solved.includes(problem.id)))
@@ -91,12 +167,20 @@ export default function Playground({problem, setSuccess}) {
             .eq('id', user.id)
       
             if(error1) console.log(error1)
+            const pointsToAdd = currentProblem.difficulty === "Easy" ? 10 : currentProblem.difficulty === "Medium" ? 20 : 30;
+
+            const { error2 } = await supabase
+              .from('users')
+              .update({ points: data[0].points + pointsToAdd })
+              .eq('id', user.id);
+        
+            if (error2) console.log(error2);
           }
         }
         else{
-          setSubmitMessage(responseData.responses.description)
+          setSubmitMessage(responseData.status.description)
           setTestTab(1)
-          toast.error(responseData.responses.description, { position: "top-center", autoClose: 3000, theme: "dark" });
+          toast.error(responseData.status.description, { position: "top-center", autoClose: 3000, theme: "dark" });
         }
       } catch (error) {
         console.error('Error:', error.message);
@@ -194,14 +278,16 @@ export default function Playground({problem, setSuccess}) {
           <div className="font-semibold my-4 pb-10">
             <p className="text-sm font-medium mt-4 text-white">AI Response: </p>
             <div className="w-full cursor-text rounded-lg border px-3 py-[10px] bg-dark-fill-3 border-transparent text-white mt-2">
-              
+              {askMessage.split('\n').map((line, index) => (
+                <div key={index}>{line}</div>
+              ))}
             </div>
           </div>
           )}
           
         </div>
         </Split>
-        <EditorFooter handleSubmit={handleSubmit} submitting={submitting} />
+        <EditorFooter handleSubmit={handleSubmit} submitting={submitting} handleAskAI={handleAskAI} asking={asking} />
     </div>
     </>
   )

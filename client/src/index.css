@@ -102,3 +102,22 @@ code {
 	color: white;
 	font-size: 1rem;
 }
+
+.filter-button {
+	background-color: #262c36;
+	padding: 6px 12px;
+	margin: 6px;
+	cursor: pointer;
+	border-radius: 4px;
+	color: white;
+	transition: background-color 0.3s;
+  }
+  
+  .selected {
+	background-color: #6b7280; /* Change this to the color you want for the selected filter */
+  }
+  
+  .filter-button:hover {
+	background-color: #4b5563;
+  }
+  

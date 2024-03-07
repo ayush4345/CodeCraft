@@ -4,14 +4,13 @@ import { AiFillYoutube } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../supabase/supabase'
 
-export default function ProblemsTable({setLoadingProblems}) {
-    const problems = useGetProblems(setLoadingProblems);
+export default function ProblemsTable({filteredProblems}) {
     const solvedProblems = useGetSolvedProblems();
     // console.log(solvedProblems)
     return (
         <>
             <tbody className="text-white">
-                {problems.map((problem, idx) => {
+                {filteredProblems.map((problem, idx) => {
                     const difficultyColor =
                         problem.difficulty === "Easy"
                             ? "text-dark-green-s"
@@ -50,35 +49,35 @@ export default function ProblemsTable({setLoadingProblems}) {
     )
 }
 
-function useGetProblems(setLoadingProblems){
-    const [problems,setProblems] = useState([])
+// function useGetProblems(setLoadingProblems){
+//     const [problems,setProblems] = useState([])
 
-    useEffect(()=>{
-        //fetch data from db
-        const fetchProblems = async () => {
-            setLoadingProblems(false)
-            try {
-              const { data, error } = await supabase
-                .from('Problems')
-                .select()
-                .order('order', { ascending: true });
+//     useEffect(()=>{
+//         //fetch data from db
+//         const fetchProblems = async () => {
+//             setLoadingProblems(false)
+//             try {
+//               const { data, error } = await supabase
+//                 .from('Problems')
+//                 .select()
+//                 .order('order', { ascending: true });
         
-            //   console.log(data)
+//             //   console.log(data)
         
-              if (error) {
-                console.error('Error fetching problems:', error);
-              } else if (data) {
-                setProblems(data)
-                setLoadingProblems(false)
-              }
-            } catch (error) {
-              console.error('Error fetching problems:', error);
-            }
-          };
-          fetchProblems();
-    },[setLoadingProblems])
-    return problems;
-}
+//               if (error) {
+//                 console.error('Error fetching problems:', error);
+//               } else if (data) {
+//                 setProblems(data)
+//                 setLoadingProblems(false)
+//               }
+//             } catch (error) {
+//               console.error('Error fetching problems:', error);
+//             }
+//           };
+//           fetchProblems();
+//     },[setLoadingProblems])
+//     return problems;
+// }
 
 function useGetSolvedProblems() {
     const [solvedProblems, setSolvedProblems] = useState([]);
