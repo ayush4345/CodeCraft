@@ -16,6 +16,7 @@ import Reset from './pages/auth/Reset';
 import Profile from './pages/profile/Profile';
 import { RecoilRoot } from 'recoil';
 import { ToastContainer } from 'react-toastify';
+import Apply from './components/three/grid';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+  {
+    path: "/learn",
+    element: <Apply />,
   },
   {
     path: "/auth",
