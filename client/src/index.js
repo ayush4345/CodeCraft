@@ -13,6 +13,7 @@ import ProblemPage from './pages/problems/[pid]';
 import SignUp from './pages/auth/SignUp';
 import Chat from './pages/chat/chat';
 import Reset from './pages/auth/Reset';
+import Profile from './pages/profile/Profile';
 import { RecoilRoot } from 'recoil';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -29,10 +30,6 @@ const router = createBrowserRouter([
     element: <AuthPage />,
   },
   {
-    path: "/auth/signup",
-    element: <SignUp />,
-  },
-  {
     path: "/problems/:pid",
     element: <ProblemPage />,
   },
@@ -43,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/reset",
     element: <Reset />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 

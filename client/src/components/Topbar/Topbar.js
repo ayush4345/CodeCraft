@@ -130,7 +130,7 @@ export default function Topbar({ problemPage }) {
                                 </Link>
                             </div>
                             <div className="cursor-pointer group relative">
-                                <img src="/avatar.png" alt="Avatar" width={30} height={30} className="rounded-full" />
+                                <Link to="/Profile"><img src="/avatar.png" alt="Avatar" width={30} height={30} className="rounded-full" /></Link>
                                 <div className="absolute top-10 left-2/4 -translate-x-2/4  mx-auto bg-dark-layer-1 text-brand-orange p-2 rounded shadow-lg z-40 group-hover:scale-100 scale-0 ransition-all duration-300 ease-in-out"
                                 >
                                     <p className="text-sm">{user.email}</p>

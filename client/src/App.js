@@ -146,10 +146,10 @@ function App() {
   return (
     <>
       <Topbar />
-      <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase pt-10 pb-10 bg-dark-layer-2 ">
+      {/* <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase pt-10 pb-10 bg-dark-layer-2 ">
             &ldquo; QUALITY OVER QUANTITY &rdquo; 👇
-      </h1>
-      <main className="bg-dark-layer-2 min-h-screen flex flex-col md:flex-row">
+      </h1> */}
+      <main className="bg-dark-layer-2 min-h-screen flex flex-col md:flex-row pt-10">
         <div className="md:w-1/4 p-4 fixed left-0">
           <div className="flex flex-wrap justify-start mb-10">
             <span className={`filter-button ${!selectedDifficulty && !selectedType ? 'selected' : ''}`} onClick={() => resetFilters()}>All</span>
@@ -167,9 +167,8 @@ function App() {
             <span className={`filter-button ${selectedType === "Sliding Window" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Sliding Window")}>Sliding Window</span>
             <span className={`filter-button ${selectedType === "Back Tracking" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Back Tracking")}>Back Tracking</span>
           </div>
-          <Leaderboard/>
         </div>
-        <div className="md:w-3/4 flex flex-col right-0 absolute">
+        <div className="md:w-1/2 flex flex-col absolute left-1/4">
           <div className="relative overflow-x-auto mx-10 px-6 pb-10">
             {loadingProblems && (
               <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
@@ -180,7 +179,7 @@ function App() {
             )}
             <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full max-w-[1200px] mx-auto">
               {!loadingProblems && (
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400 border-b ">
+                <thead className="text-xs text-gray-500 uppercase dark:text-gray-400 border-b ">
                   <tr>
                     <th scope="col" className="px-1 py-3 w-0 font-medium">
                       Status
@@ -194,15 +193,18 @@ function App() {
                     <th scope="col" className="px-6 py-3 w-0 font-medium">
                       Category
                     </th>
-                    <th scope="col" className="px-6 py-3 w-0 font-medium">
+                    {/* <th scope="col" className="px-6 py-3 w-0 font-medium">
                       Solution
-                    </th>
+                    </th> */}
                   </tr>
                 </thead>
               )}
               <ProblemsTable filteredProblems={filteredProblems} />
             </table>
           </div>
+        </div>
+        <div className="md:w-1/4 p-4 fixed right-0">
+          <Leaderboard/>
         </div>
         {/* <div className="md:w-1/4 p-4">
         <div className="relative overflow-x-auto px-6 pb-10">

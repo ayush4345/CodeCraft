@@ -139,9 +139,9 @@ export default function Login() {
       <div className="text-sm font-medium text-gray-300">
         Not Registered?{" "}
         <Link
-          to='/auth/signup'
+          // to='/auth/signup'
           className="text-blue-700 hover:underline"
-          // onClick={() => handleClick("register")}
+          onClick={() => handleClick("register")}
         >
           Create account
         </Link>

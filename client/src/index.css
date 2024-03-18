@@ -120,4 +120,8 @@ code {
   .filter-button:hover {
 	background-color: #4b5563;
   }
+
+  .donutchart-innertext{
+	fill: white;
+  }
   

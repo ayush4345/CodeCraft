@@ -105,8 +105,8 @@ export default function SignUp() {
     }, [error]);
     
   return (
-    <form className="space-y-6 px-6 pb-4 overflow-y-auto h-screen" onSubmit={handleRegister}>
-      <h3 className="text-xl font-medium text-white my-10">Register to LeetClone</h3>
+    <form className="space-y-6 px-6 pb-4 overflow-y-auto h-96" onSubmit={handleRegister}>
+      <h3 className="text-xl font-medium text-white my-3">Register to LeetClone</h3>
       
       <div>
         <label htmlFor="name" className="text-sm font-medium block mb-2 text-gray-300">

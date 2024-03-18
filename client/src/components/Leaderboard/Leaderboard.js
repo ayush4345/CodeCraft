@@ -22,7 +22,7 @@ export default function Leaderboard() {
       }, [scrollRef]);
 
   return (
-    <div className="relative overflow-x-auto px-2 pb-10 max-h-52">
+    <div className="relative overflow-x-auto px-2 pb-10 max-h-screen">
             {loadingLeaderboard && (
               <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
                 {[...Array(10)].map((_, idx) => (
@@ -33,7 +33,7 @@ export default function Leaderboard() {
             <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full max-w-[1200px] mx-auto">
               {!loadingLeaderboard && (
                 <>
-                <thead className="text-xs text-gray-500 uppercase dark:text-gray-400 border-b sticky top-0">
+                <thead className="text-xs text-gray-500 uppercase dark:text-gray-400 border-b sticky top-0 bg-dark-layer-2">
                   <tr>
                     <th scope="col" className="px-1 py-3 w-0 font-medium">
                       Rank
