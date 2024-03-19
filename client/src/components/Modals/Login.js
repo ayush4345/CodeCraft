@@ -3,7 +3,7 @@ import { useSetRecoilState } from 'recoil';
 import { authModalState } from '../../atoms/authModalAtom';
 import { supabase } from '../../supabase/supabase';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
@@ -138,13 +138,13 @@ export default function Login() {
       </button>
       <div className="text-sm font-medium text-gray-300">
         Not Registered?{" "}
-        <a
-          href="#"
+        <Link
+          // to='/auth/signup'
           className="text-blue-700 hover:underline"
           onClick={() => handleClick("register")}
         >
           Create account
-        </a>
+        </Link>
       </div>
     </form>
   )

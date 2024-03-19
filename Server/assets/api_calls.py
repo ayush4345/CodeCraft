@@ -9,30 +9,44 @@ api_url = "https://ce.judge0.com/"
 rapid_api_key = os.getenv('rapid_api_key')
 
 @csrf_exempt
-def get_languages():
+def get_languages(request):
     try:
         url = api_url + "languages/"
         response = requests.get(url)
 
+        response_headers = {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        }
+
         response = response.json()
-        print(response)
-        return(response)
+        # print(response)
+        return {'languages':response}
     except requests.exceptions.RequestException as e:
         print(f"Error fetching languages: {e}")
         return None
 
 
-def get_submission_token(source_code, id, inputs):
+def get_submission_token(source_code, id, inputs, outputs):
     try:
         url = "https://judge0-ce.p.rapidapi.com/submissions"
 
-        querystring = {"base64_encoded": "false", "fields": "*"}
+        querystring = {
+            "base64_encoded": "false",
+            "fields": "*",
+            "language_id": id,
+            "source_code": source_code,
+            "stdin": inputs,
+            "expected_output": outputs,
+        }
 
         payload = {
             "language_id": id,
             "source_code": source_code,
-            "stdin": inputs
-        }
+            "stdin": inputs,
+            "expected_output": outputs,
+        },
 
         headers = {
             "content-type": "application/json",
@@ -77,7 +91,7 @@ def check_submission_status(token):
         return None
 
 @csrf_exempt
-def compile(source_code, lang_id, inputs = None):
-    token = get_submission_token(source_code, lang_id, inputs)
+def compile(source_code, lang_id, inputs = None,outputs = None):
+    token = get_submission_token(source_code, lang_id, inputs, outputs)
     ans = check_submission_status(token)
     return ans

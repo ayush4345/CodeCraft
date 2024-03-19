@@ -8,12 +8,12 @@ from assets.openai_api import open_ai_api_call, learn_ask_ai
 # Create your views here.
 class Languages(APIView):
     def get(self,request):
-        return Response(get_languages())
+        return Response(get_languages(request))
         
     
 class Compile(APIView):
     def post(self, request):
-        return Response(compile(request.data["source_code"], request.data["language_id"], request.data["inputs"]))
+        return Response(compile(request.data["source_code"], request.data["language_id"], request.data["inputs"],request.data["outputs"]))
     
 class Askai(APIView):
     def post(self, request):
