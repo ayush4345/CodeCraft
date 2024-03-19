@@ -144,117 +144,65 @@ function App() {
   const hasMounted = useHasMounted();
   if (!hasMounted) return null;
   return (
-    <>
+    <main className="bg-dark-layer-2 min-h-screen">
       <Topbar />
       {/* <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase pt-10 pb-10 bg-dark-layer-2 ">
             &ldquo; QUALITY OVER QUANTITY &rdquo; 👇
       </h1> */}
-      <main className="bg-dark-layer-2 min-h-screen flex flex-col md:flex-row pt-10">
-        <div className="md:w-1/4 p-4 fixed left-0">
-          <div className="flex flex-wrap justify-start mb-10">
-            <span className={`filter-button ${!selectedDifficulty && !selectedType ? 'selected' : ''}`} onClick={() => resetFilters()}>All</span>
-            <span className={`filter-button ${selectedDifficulty === "Easy" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Easy")}>Easy</span>
-            <span className={`filter-button ${selectedDifficulty === "Medium" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Medium")}>Medium</span>
-            <span className={`filter-button ${selectedDifficulty === "Hard" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Hard")}>Hard</span>
-            <span className={`filter-button ${selectedType === "Dynamic Programming" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Dynamic Programming")}>Dynamic Programming</span>
-            <span className={`filter-button ${selectedType === "Two Pointers" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Two Pointers")}>Two Pointers</span>
-            <span className={`filter-button ${selectedType === "Array" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Array")}>Array</span>
-            <span className={`filter-button ${selectedType === "Linked List" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Linked List")}>Linked List</span>
-            <span className={`filter-button ${selectedType === "Stack" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Stack")}>Stack</span>
-            <span className={`filter-button ${selectedType === "Binary Search" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Binary Search")}>Binary Search</span>
-            <span className={`filter-button ${selectedType === "Binary Tree" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Binary Tree")}>Binary Tree</span>
-            <span className={`filter-button ${selectedType === "Intervals" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Intervals")}>Intervals</span>
-            <span className={`filter-button ${selectedType === "Sliding Window" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Sliding Window")}>Sliding Window</span>
-            <span className={`filter-button ${selectedType === "Back Tracking" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Back Tracking")}>Back Tracking</span>
-          </div>
+        <div className="flex gap-5 py-10 justify-evenly">
+        {/* <div className=""> */}
+        <div className="md:w-56 flex flex-wrap justify-start h-64">
+          <span className={`filter-button ${!selectedDifficulty && !selectedType ? 'selected' : ''}`} onClick={() => resetFilters()}>All</span>
+          <span className={`filter-button ${selectedDifficulty === "Easy" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Easy")}>Easy</span>
+          <span className={`filter-button ${selectedDifficulty === "Medium" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Medium")}>Medium</span>
+          <span className={`filter-button ${selectedDifficulty === "Hard" ? 'selected' : ''}`} onClick={() => handleDifficultyFilter("Hard")}>Hard</span>
+          <span className={`filter-button ${selectedType === "Dynamic Programming" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Dynamic Programming")}>Dynamic Programming</span>
+          <span className={`filter-button ${selectedType === "Two Pointers" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Two Pointers")}>Two Pointers</span>
+          <span className={`filter-button ${selectedType === "Array" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Array")}>Array</span>
+          <span className={`filter-button ${selectedType === "Linked List" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Linked List")}>Linked List</span>
+          <span className={`filter-button ${selectedType === "Stack" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Stack")}>Stack</span>
+          <span className={`filter-button ${selectedType === "Binary Search" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Binary Search")}>Binary Search</span>
+          <span className={`filter-button ${selectedType === "Binary Tree" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Binary Tree")}>Binary Tree</span>
+          <span className={`filter-button ${selectedType === "Intervals" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Intervals")}>Intervals</span>
+          <span className={`filter-button ${selectedType === "Sliding Window" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Sliding Window")}>Sliding Window</span>
+          <span className={`filter-button ${selectedType === "Back Tracking" ? 'selected' : ''}`} onClick={() => handleTypeFilter("Back Tracking")}>Back Tracking</span>
         </div>
-        <div className="md:w-1/2 flex flex-col absolute left-1/4">
-          <div className="relative overflow-x-auto mx-10 px-6 pb-10">
-            {loadingProblems && (
-              <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
-                {[...Array(10)].map((_, idx) => (
-                  <LoadingSkeleton key={idx} />
-                ))}
-              </div>
+        {/* </div> */}
+        <div className="overflow-x-auto md:w-1/2 flex flex-col">
+          {loadingProblems && (
+            <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
+              {[...Array(10)].map((_, idx) => (
+                <LoadingSkeleton key={idx} />
+              ))}
+            </div>
+          )}
+          <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full max-w-[1200px] mx-auto">
+            {!loadingProblems && (
+              <thead className="text-xs text-gray-500 uppercase dark:text-gray-400 border-b ">
+                <tr>
+                  <th scope="col" className="px-1 py-3 w-0 font-medium">
+                    Status
+                  </th>
+                  <th scope="col" className="px-6 py-3 w-0 font-medium">
+                    Title
+                  </th>
+                  <th scope="col" className="px-6 py-3 w-0 font-medium">
+                    Difficulty
+                  </th>
+                  <th scope="col" className="px-6 py-3 w-0 font-medium">
+                    Category
+                  </th>
+                </tr>
+              </thead>
             )}
-            <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full max-w-[1200px] mx-auto">
-              {!loadingProblems && (
-                <thead className="text-xs text-gray-500 uppercase dark:text-gray-400 border-b ">
-                  <tr>
-                    <th scope="col" className="px-1 py-3 w-0 font-medium">
-                      Status
-                    </th>
-                    <th scope="col" className="px-6 py-3 w-0 font-medium">
-                      Title
-                    </th>
-                    <th scope="col" className="px-6 py-3 w-0 font-medium">
-                      Difficulty
-                    </th>
-                    <th scope="col" className="px-6 py-3 w-0 font-medium">
-                      Category
-                    </th>
-                    {/* <th scope="col" className="px-6 py-3 w-0 font-medium">
-                      Solution
-                    </th> */}
-                  </tr>
-                </thead>
-              )}
-              <ProblemsTable filteredProblems={filteredProblems} />
-            </table>
-          </div>
+            <ProblemsTable filteredProblems={filteredProblems} />
+          </table>
         </div>
-        <div className="md:w-1/4 p-4 fixed right-0">
+        <div className="overflow-x-auto md:w-1/4 flex flex-col h-96">
           <Leaderboard/>
         </div>
-        {/* <div className="md:w-1/4 p-4">
-        <div className="relative overflow-x-auto px-6 pb-10">
-            {loadingLeaderboard && (
-              <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
-                {[...Array(10)].map((_, idx) => (
-                  <LoadingSkeleton key={idx} />
-                ))}
-              </div>
-            )}
-            <table className="text-sm text-left text-gray-500 dark:text-gray-400 w-full max-w-[1200px] mx-auto">
-              {!loadingLeaderboard && (
-                <>
-                <thead className="text-xs text-gray-700 uppercase dark:text-gray-400 border-b ">
-                  <tr>
-                    <th scope="col" className="px-1 py-3 w-0 font-medium">
-                      Rank
-                    </th>
-                    <th scope="col" className="px-1 py-3 w-0 font-medium">
-                      Display Name
-                    </th>
-                    <th scope="col" className="px-6 py-3 w-0 font-medium">
-                      Points
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="text-white">
-                {leaderboard.map((problem, idx) => {
-                    return (
-                        <tr className={`${idx % 2 === 1 ? "bg-dark-layer-1" : ""}`} key={idx}>
-                            <td className="px-6 py-4">
-                              {idx+1}
-                            </td>
-                            <td className={`px-6 py-4 `}>
-                                {problem.displayName}
-                            </td>
-                            <td className={"px-6 py-4"}>
-                                {problem.points}
-                            </td>
-                        </tr>
-                    );
-                })}
-            </tbody>
-                </>
-              )}
-            </table>
-          </div>
-        </div> */}
-      </main>
-    </>
+        </div>
+    </main>
   );
 }
 

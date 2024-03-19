@@ -22,7 +22,7 @@ export default function Leaderboard() {
       }, [scrollRef]);
 
   return (
-    <div className="relative overflow-x-auto px-2 pb-10 max-h-screen">
+    <>
             {loadingLeaderboard && (
               <div className="max-w-[1200px] mx-auto sm:w-7/12 w-full animate-pulse">
                 {[...Array(10)].map((_, idx) => (
@@ -66,7 +66,7 @@ export default function Leaderboard() {
                 </>
               )}
             </table>
-          </div>
+          </>
   )
 }
 

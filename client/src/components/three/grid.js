@@ -420,7 +420,7 @@ const Apply =() => {
     }
     };
         return (
-          <div>
+          <div className="bg-dark-layer-2">
             <Topbar/>
             <div className={styles1.main}>
               <div className ={styles1.sidebar}>

@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <div className="flex items-center justify-between sm:px-12 px-2 md:px-24">
       <Link to="/" className="flex items-center justify-center h-20">
-        <img src="/logo.png" alt="LeetClone" height={200} width={200} />
+        <img src="/Untitled_logo_1_free-file-removebg-preview-copy(1).png" alt="LeetClone" height={200} width={200} />
       </Link>
       <div className="flex items-center gap-6">
         {/* <button
