@@ -171,7 +171,7 @@ export default function Profile() {
                                             <div className="px-4 py-2">{userData.level ? userData.level : ""}</div>
                                         </div>
                                         <div className="grid grid-cols-2">
-                                            <div className="px-4 py-2 font-semibold">Toatl Points</div>
+                                            <div className="px-4 py-2 font-semibold">Total Points</div>
                                             <div className="px-4 py-2">{userData.points ? userData.points : ""}</div>
                                         </div>
                                         <div className="grid grid-cols-2">
