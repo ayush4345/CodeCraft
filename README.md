@@ -154,38 +154,23 @@ To use these APIs, you can send HTTP requests to the respective URLs using tools
 
 </br>
 
-## Working of Django Framework for APIs
+## Working of Django Framework for our APIs
 
-The backend of these APIs is built using the Django REST Framework (DRF), a powerful and flexible toolkit for building web APIs in Django. Here's a brief overview of how Django works in the context of building APIs:
 
-### Models
+### Working of Django Framework for APIs in CodeCraft Project
 
-The backend likely includes one or more Django models to represent the data entities required for the APIs. For example, there might be models for programming languages, code submissions, user profiles, etc.
 
-### Serializers
+1. **Views**:
+   - Views in Django serve as the endpoints for handling incoming HTTP requests and generating appropriate responses. In our project, views were responsible for implementing the logic behind each API endpoint. For example, we have views for compiling code, retrieving supported languages, and providing AI-based suggestions for error messages.
 
-DRF uses serializers to convert complex data types, such as Django models, into Python data types that can be easily rendered into JSON or other content types. The backend likely includes serializers for the models mentioned above.
+2. **URL Routing**:
+   - URL routing configuration was utilized to map the API endpoints to their respective views. This routing mechanism ensures that incoming requests are directed to the appropriate view for processing. For instance, endpoints like `/compile` and `/languages` were routed to their corresponding views for handling compilation requests and language retrieval requests, respectively.
 
-### Views
 
-The APIs are implemented as Django views, which handle the incoming HTTP requests and return the appropriate responses. The views likely make use of the serializers to convert data between Python objects and JSON representations.
+3. **Third-Party Integrations**:
+   - our project is integrated with third-party services or libraries for certain functionalities. For instance, the compilation feature in the `/compile` API is  relied on a third-party code execution engine, Judge0 to compile and execute the submitted code securely. `/askai` and `/learnaskai` utilise openai api to give suggestions.
 
-### URL Routing
-
-The backend includes URL routing configuration to map the API endpoints (e.g., `/compile`, `/languages`, `/askai`, `/learnaskai`) to their respective views.
-
-### Authentication and Permissions
-
-Depending on the requirements, the backend might include authentication and permission handling mechanisms to secure the APIs and control access.
-
-### Database Interactions
-
-The backend interacts with a database (e.g., SQLite, PostgreSQL, MySQL) to store and retrieve data required for the APIs. Django's Object-Relational Mapping (ORM) layer is likely used to interact with the database.
-
-### Third-Party Integrations
-
-The backend might integrate with third-party services or libraries to provide certain functionalities. For example, it might use a code execution engine to compile and run the submitted code for the `/compile` API.
-
+By leveraging these specific components of the Django framework, the CodeCraft project successfully implements a reliable and efficient RESTful API system, catering to various functionalities.
 
 
 # Deployment
