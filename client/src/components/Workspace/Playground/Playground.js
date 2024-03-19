@@ -287,7 +287,7 @@ export default function Playground({problem, setSuccess}) {
           
         </div>
         </Split>
-        <EditorFooter handleSubmit={handleSubmit} submitting={submitting} handleAskAI={handleAskAI} asking={asking} />
+        <EditorFooter handleSubmit={handleSubmit} submitting={submitting} handleAskAI={handleAskAI} asking={asking} askMessage={askMessage}/>
     </div>
     </>
   )

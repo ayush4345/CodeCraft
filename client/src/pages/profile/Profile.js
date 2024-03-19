@@ -241,7 +241,7 @@ export default function Profile() {
                                             <span className="tracking-wide">Analytics</span>
                                         </div>
 
-                                        <div>
+                                        {!loadingUserData && (<div>
                                             <DonutChart
                                                 data={[
                                                     {
@@ -278,7 +278,7 @@ export default function Profile() {
                                                 colors={['green','yellow','red','white']}
                                                 
                                             />
-                                        </div>
+                                        </div>)}
                                     </div>
                                 </div>
 
