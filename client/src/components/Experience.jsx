@@ -37,7 +37,7 @@ const ExperienceCard = (link) => {
 
 const Experience = (props) => {
   const {links} = props;
-  console.log(links)
+  // console.log(links)
   if (!links || !Array.isArray(links)) {
     return null; // or display an error message or handle it accordingly
   }

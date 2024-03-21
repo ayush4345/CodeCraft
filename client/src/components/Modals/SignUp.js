@@ -58,7 +58,7 @@ export default function SignUp() {
         if (error) {
           throw error;
         }else{
-          console.log('Signed up:', user);
+          // console.log('Signed up:', user);
         // alert("Signed up successfully. Confirm it before login on your registered mailId.")
         const { data, error: linkError } = await supabase
           .from('users')
@@ -79,7 +79,7 @@ export default function SignUp() {
         if (linkError) {
           console.error('Error linking user with users table:', linkError.message);
         } else {
-          console.log('User linked with users table:', data);
+          // console.log('User linked with users table:', data);
         }
         }
   

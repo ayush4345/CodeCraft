@@ -47,7 +47,7 @@ export default function Login() {
           throw error;
         }
   
-        console.log('User signed in successfully:', user);
+        // console.log('User signed in successfully:', user);
         toast.success('Login successful', {
           position: 'top-center',
           autoClose: 3000,

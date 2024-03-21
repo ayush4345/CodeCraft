@@ -63,7 +63,7 @@ const Chat = () => {
                 .from('users')
                 .select('displayName')
                 .eq('id', user.id);
-            console.log(data);
+            // console.log(data);
 
             const { error } = await supabase.from('messages').insert([
                 { displayName: data[0].displayName, text: newMessage }

@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 export default function ProblemDescription({ problem }) {
 	const { currentProblem, loading, problemDifficultyClass, setCurrentProblem} = useGetCurrentProblem(problem.id);
 	const { userData, setUserData, userDoc } = useGetUsersDataOnProblem(problem.id);
+	// console.log(userData)
 	const [updating, setUpdating] = useState(false)
 	
 
@@ -380,7 +381,7 @@ function useGetUsersDataOnProblem(problemId){
 				.from('users')
 				.select('likedProblems,dislikedProblems,starredProblems,solvedProblems')
 				.eq('id',user.id)
-				// console.log(data[0])
+				// console.log(data[0].solvedProblems.includes(problemId))
 
 
 				const { solvedProblems, likedProblems, dislikedProblems, starredProblems } = data[0];
@@ -397,11 +398,11 @@ function useGetUsersDataOnProblem(problemId){
 					starredProblems:starredProblems?starredProblems:[],
 					solvedProblems:solvedProblems?solvedProblems:[]
 				})
-				// console.log(userData)
+				//console.log(userData)
 			}
 		}
 		getUsersDataOnProblems();
-	},[])
+	},[problemId])
 
 	return {userData,setUserData, userDoc}
 }
