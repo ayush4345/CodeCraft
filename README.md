@@ -59,7 +59,7 @@ The Auth Page is responsible for handling user authentication. It includes the f
 
 - It also includes a button to navigate to the "Forgot Password" flow and a link to navigate to the "Sign Up" flow.
 
-### SignUp
+### Signup
 
 - This component handles the user registration functionality.
 - It provides input fields for the user to enter their personal information (name, profession, institute, age group, email, display name, password, reason for learning coding, and experience level).
