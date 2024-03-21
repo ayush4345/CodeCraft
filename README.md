@@ -97,7 +97,7 @@ The learning page interacts with multiple APIs:
 4. **Supabase**: The component interacts with the Supabase database to store and retrieve user-related data, such as topics, profession, age, experience, and level.
 
 
-# Web Scraping API with Puppeteer and Express.js
+## Web Scraping API with Puppeteer and Express.js
 
 Made a Express.js server that provides an API for web scraping using the Puppeteer library. The server listens on port 8081 and accepts POST requests at the `/api` endpoint with a topic in the request body. It then uses the Puppeteer library to launch a headless Chrome browser, search for the given topic on Google, and retrieve a list of links from the search results.
 
@@ -105,6 +105,16 @@ Made a Express.js server that provides an API for web scraping using the Puppete
 - `express`: A popular web application framework for Node.js.
 - `cors`: A middleware that provides a Connect/Express middleware for handling Cross-Origin Resource Sharing (CORS).
 - `puppeteer-core`: A high-level API to control headless Chrome or Chromium over the DevTools Protocol.
+
+## 7. Practice Contests
+
+### Features
+
+1. **Challenge List**: A user can choose any number of questions from the list of available questions on the coding platform.
+
+2. **Countdown Timer**: A countdown timer is displayed at the top of the page, showing the remaining time for the contest. The timer is calculated based on the start time and duration of the contest.
+
+3. **Contest Points**: After the contest ends, the total points earned by the user during the contest are also displayed.
 
 ## Setup and Installation
 
