@@ -59,7 +59,7 @@ export default function Profile() {
         
         if (!loadingUserData && problems && userData) {
             const newDifficulty = {'Easy': 0, 'Medium': 0, 'Hard': 0};
-            userData.solvedProblems.forEach(element => {
+            userData.solvedProblems?.forEach(element => {
                 const currentProblem = problems.find(problem => problem.id === element);
                 if (currentProblem) {
                     newDifficulty[currentProblem.difficulty] += 1; 
@@ -210,19 +210,19 @@ export default function Profile() {
                                         {!loadingUserData && (<ul className="list-inside space-y-2">
                                             <li >
                                                 <div className="text-teal-600">Solved Problems</div>
-                                                <div className="text-gray-500 ">{userData.solvedProblems.length}</div>
+                                                <div className="text-gray-500 ">{userData.solvedProblems?.length ?? 0}</div>
                                             </li>
                                             <li>
                                                 <div className="text-teal-600">Liked Problems</div>
-                                                <div className="text-gray-500 text-xs">{userData.likedProblems.length}</div>
+                                                <div className="text-gray-500 ">{userData.likedProblems?.length ?? 0}</div>
                                             </li>
                                             <li>
                                                 <div className="text-teal-600">Disliked Problems</div>
-                                                <div className="text-gray-500 text-xs">{userData.dislikedProblems.length}</div>
+                                                <div className="text-gray-500">{userData.dislikedProblems?.length ?? 0}</div>
                                             </li>
                                             <li>
                                                 <div className="text-teal-600">Starred Problems</div>
-                                                <div className="text-gray-500 text-xs">{userData.starredProblems.length}</div>
+                                                <div className="text-gray-500">{userData.starredProblems?.length ?? 0}</div>
                                             </li>
                                         </ul>)}
                                     </div>

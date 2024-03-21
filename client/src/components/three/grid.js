@@ -41,9 +41,16 @@ const Apply =() => {
     // Fetch all topics from the "topics" table
     const fetchAllTopics = async () => {
       try {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+          // Handle case where user is not logged in
+          return;
+        }
+        
         const { data: topicsData } = await supabase
           .from('topics')
-          .select('topics');
+          .select('topics')
+          .eq('email', user.email);
   
         if (topicsData.length) {
           // Extract topic names and update state
@@ -54,9 +61,10 @@ const Apply =() => {
         console.error('Error fetching topics:', error);
       }
     };
+    
     fetchAllTopics();
   }, []); // Run the effect only once on mount
-
+  
   
   useEffect(() => {
 

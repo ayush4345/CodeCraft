@@ -160,23 +160,16 @@ export default function SignUp() {
         <label htmlFor="ageGroup" className="text-sm font-medium block mb-2 text-gray-300">
           Age Group
         </label>
-        <select
-          onChange={handleChangeInput}
+        <input
+        onChange={handleChangeInput}
+          type="text"
           name="ageGroup"
           id="ageGroup"
           className="
-            border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-            bg-gray-600 border-gray-500 placeholder-gray-400 text-white
-          "
-          defaultValue="" // Set the default value to an empty string
-        >
-          <option value="" disabled hidden >
-            Select an age group
-          </option>
-          <option value="Below 18">Below 18</option>
-          <option value="18-25">18-25</option>
-          <option value="25+">25+</option>
-        </select>
+        border-2 outline-none sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+        bg-gray-600 border-gray-500 placeholder-gray-400 text-white
+    "
+          placeholder="Enter your age"/>
       </div>
 
       <div>

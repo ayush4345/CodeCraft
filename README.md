@@ -1,6 +1,5 @@
-# React Project
+# CodeCraft Coding Platform
 
-This is a React project that includes the following pages:
 
 ## 1. Landing Page
 
@@ -67,6 +66,46 @@ The Auth Page is responsible for handling user authentication. It includes the f
 
 Overall, these components work together to provide a seamless authentication experience for users.
 
+## 6. Learning Page
+
+This page provides a user-friendly interface to  explore various topics related to data structures and algorithms. It provides a search bar, displays the results, and shows relevant videos and links based on the user's search query.
+
+
+1. **Topic Search**: The component allows users to enter a topic in the search bar. When the user submits the topic, it sends a request to the server to fetch the relevant information.
+
+2. **Result Display**: Upon receiving the response from the server, the component displays the result as formatted Markdown content using the `react-markdown` library.
+
+3. **Video Listing**: The component also fetches relevant videos from the YouTube API based on the search query. These videos are displayed in a vertical timeline using the `react-vertical-timeline-component` library.
+
+4. **Link Listing**: In addition to videos, the component displays a list of useful content and links related to the search query. These links are also presented in a vertical timeline format. For web scraping of links we are using puppeteer. 
+
+5. **Topic History**: The component maintains a history of the user's searched topics. These topics are displayed as buttons on the left sidebar, allowing the user to quickly revisit a specific topic.
+
+6. **Topic Management**: Users can delete topics from their history by clicking the delete icon next to each topic button.
+
+
+### API Integrations
+
+The learning page interacts with multiple APIs:
+
+1. **Local Server API**: The component sends a POST request to `http://localhost:8081/api` with the search topic as the request body. The server responds with an array of useful links related to the topic.
+
+2. **Django Rest API**: The component sends a POST request to `http://127.0.0.1:8000/learnaskai` with the search topic, user profession, age, experience, and level as the request body. The Flask server likely processes the request and responds with the result content.
+
+3. **YouTube API**: The component fetches relevant videos from the YouTube API by sending a GET request to `https://www.googleapis.com/youtube/v3/search`. The API responds with an array of video data, which is then displayed in the vertical timeline.
+
+4. **Supabase**: The component interacts with the Supabase database to store and retrieve user-related data, such as topics, profession, age, experience, and level.
+
+
+# Web Scraping API with Puppeteer and Express.js
+
+Made a Express.js server that provides an API for web scraping using the Puppeteer library. The server listens on port 8081 and accepts POST requests at the `/api` endpoint with a topic in the request body. It then uses the Puppeteer library to launch a headless Chrome browser, search for the given topic on Google, and retrieve a list of links from the search results.
+
+
+- `express`: A popular web application framework for Node.js.
+- `cors`: A middleware that provides a Connect/Express middleware for handling Cross-Origin Resource Sharing (CORS).
+- `puppeteer-core`: A high-level API to control headless Chrome or Chromium over the DevTools Protocol.
+
 ## Setup and Installation
 
 To run this project locally, follow these steps:
@@ -76,6 +115,8 @@ To run this project locally, follow these steps:
 3. Install dependencies: `npm install`
 4. Set up the Supabase project and configure the required credentials in the `supabase.js` file.
 5. Start the development server: `npm start`
+6. For running Puppteer backend, Navigate to the project directory: `cd puppeteer`.
+7. Start the puppeteer server : `node server.js`.
 
 The project should now be running on `http://localhost:3000`.
 

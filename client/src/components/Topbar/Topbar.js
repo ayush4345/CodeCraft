@@ -12,7 +12,6 @@ import { useParams } from 'react-router-dom';
 import { problems } from '../../utils/problems/index'
 import { useNavigate } from 'react-router-dom';
 
-
 export default function Topbar({ problemPage }) {
     const [user, setUser] = useState(null);
     const setAuthModalState = useSetRecoilState(authModalState);
@@ -99,14 +98,7 @@ export default function Topbar({ problemPage }) {
                     )}
 
                     <div className="flex items-center space-x-4 flex-1 justify-end">
-                        <div>
-                            <Link
-                                to="/learn"
-                                className="bg-dark-fill-3 py-1.5 px-3 cursor-pointer rounded text-brand-orange hover:bg-dark-fill-2"
-                            >
-                                Learn
-                            </Link>
-                        </div>
+                       
                         {!user && (
                             <Link to="/auth"
                                 onClick={
@@ -121,6 +113,22 @@ export default function Topbar({ problemPage }) {
 
                         {user && (
                             <>
+                             <div>
+                            <Link
+                                to="/learn"
+                                className="bg-dark-fill-3 py-1.5 px-3 cursor-pointer rounded text-brand-orange hover:bg-dark-fill-2"
+                            >
+                                Learn
+                            </Link>
+                        </div>
+                        <div>
+                            <Link
+                                to="/contests"
+                                className="bg-dark-fill-3 py-1.5 px-3 cursor-pointer rounded text-brand-orange hover:bg-dark-fill-2"
+                            >
+                                Contest
+                            </Link>
+                        </div>
                             <div>
                                 <Link
                                     to="/chat"
