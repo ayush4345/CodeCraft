@@ -44,10 +44,10 @@ const ContestForm = () => {
   
 
   return (
-    <>
+    <div className='bg-dark-layer-2'>
     <Topbar />
     <br></br>
-    <div className="max-w-md mx-auto mt-8 bg-black">
+    <div className="max-w-md mx-auto mt-8 bg-dark-layer-1">
      <form className="space-y-6 px-6 pb-4 overflow-y-auto h-screen" onSubmit={handleSubmit}>
       <h3 className="text-xl font-medium text-white my-10">CREATE YOUR OWN CONTEST</h3>
       
@@ -120,7 +120,8 @@ const ContestForm = () => {
         "
       >SUBMIT</button>
       </form>
-    </div></>
+    </div>
+    </div>
   );
 };
 

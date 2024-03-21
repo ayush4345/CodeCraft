@@ -42,7 +42,7 @@ export default function ProblemsTable({ setLoadingProblems }) {
 
     return (
         <>
-                <tbody className="text-white">
+                <tbody className="text-white bg-dark-layer-2">
                     {problems.map((problem, idx) => {
                         const difficultyColor =
                             problem.difficulty === "Easy"
