@@ -80,7 +80,7 @@ This repository contains a set of Django REST APIs for various functionalities. 
     }
   }
   ```
-- **Description:** This API compiles and executes the provided source code in the specified programming language (in this case, Python). It returns the output of the code execution, along with the execution time and a status indicator.
+- **Description:** This API compiles and executes the provided source code in the specified programming language . It returns the output of the code execution, along with the execution time and a status indicator.
 
 ### 2. Languages API
 
@@ -123,7 +123,7 @@ This repository contains a set of Django REST APIs for various functionalities. 
     "content": "1. Check the logic for accessing array elements and ensure it is within the bounds of the array.\n2. Consider the conditions under which the array index is being calculated or manipulated.\n3. Review how the array is being initialized and populated to identify any potential issues."
   }
   ```
-- **Description:** This API accepts an error message, along with some user information, and provides a response with suggestions or explanations related to the error, particularly for array index out-of-bounds exceptions.
+- **Description:** This API accepts an error message, along with some user information, and provides a response with suggestions or explanations related to the error.
 
 ### 4. Learn Ask AI API
 
@@ -147,30 +147,21 @@ This repository contains a set of Django REST APIs for various functionalities. 
   ```
 - **Description:** This API provides an explanation and example implementation of the Merge Sort algorithm in Python, based on the requested topic and user information.
 
-## Usage
-
-To use these APIs, you can send HTTP requests to the respective URLs using tools like cURL, Postman, or by integrating them into your application code. Make sure to include the required request bodies for the `POST` requests, and handle the responses appropriately.
-
 
 </br>
 
-## Working of Django Framework for our APIs
-
-
-### Working of Django Framework for APIs in CodeCraft Project
+## Working of Django Framework
 
 
 1. **Views**:
-   - Views in Django serve as the endpoints for handling incoming HTTP requests and generating appropriate responses. In our project, views were responsible for implementing the logic behind each API endpoint. For example, we have views for compiling code, retrieving supported languages, and providing AI-based suggestions for error messages.
+   - Views in Django serve as the endpoints for handling incoming HTTP requests and generating appropriate responses. Views were responsible for implementing the logic behind each API endpoint. For example, we have views for compiling code, retrieving supported languages, and providing AI-based suggestions for error messages.
 
 2. **URL Routing**:
    - URL routing configuration was utilized to map the API endpoints to their respective views. This routing mechanism ensures that incoming requests are directed to the appropriate view for processing. For instance, endpoints like `/compile` and `/languages` were routed to their corresponding views for handling compilation requests and language retrieval requests, respectively.
 
 
 3. **Third-Party Integrations**:
-   - our project is integrated with third-party services or libraries for certain functionalities. For instance, the compilation feature in the `/compile` API is  relied on a third-party code execution engine, Judge0 to compile and execute the submitted code securely. `/askai` and `/learnaskai` utilise openai api to give suggestions.
-
-By leveraging these specific components of the Django framework, the CodeCraft project successfully implements a reliable and efficient RESTful API system, catering to various functionalities.
+   - our project is integrated with third-party services or libraries for certain functionalities. For instance, the compilation feature in the `/compile` API is  relied on a third-party code execution engine, [Judge0](https://ce.judge0.com/) to compile and execute the submitted code securely. `/askai` and `/learnaskai` utilise [OpenAI](https://platform.openai.com/docs/introduction) API to give suggestions.
 
 
 # Deployment
