@@ -10,6 +10,10 @@ import {
 import App from './App';
 import AuthPage from './pages/auth/AuthPage';
 import ProblemPage from './pages/problems/[pid]';
+import SignUp from './pages/auth/SignUp';
+import Chat from './pages/chat/chat';
+import Reset from './pages/auth/Reset';
+import Profile from './pages/profile/Profile';
 import { RecoilRoot } from 'recoil';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -30,8 +34,16 @@ const router = createBrowserRouter([
     element: <ProblemPage />,
   },
   {
-    path: "/auth/reset",
-    element: <div>Hi</div>,
+    path: "/chat",
+    element: <Chat />,
+  },
+  {
+    path: "/reset",
+    element: <Reset />,
+  },
+  {
+    path: "/profile",
+    element: <Profile />,
   },
 ]);
 
